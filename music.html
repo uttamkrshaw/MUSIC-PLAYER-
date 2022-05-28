@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://kit.fontawesome.com/4f2a80e093.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Jost&display=swap" rel="stylesheet" />
+
+  <title>Document</title>
+</head>
+
+<body>
+  <div class="main_div">
+    <div class="music_container">
+      <h2 id="title">Sing For The Moment</h2>
+      <h3 id="artist">Eminem</h3>
+
+      <div class="img-container">
+        <img src="MUSIC/IMAGES/Sing For The Moment.jpg" alt="cover" />
+      </div>
+      <audio src="MUSIC/Sing For The Moment.mp3"></audio>
+
+      <!---- Controls Tag --->
+      <div class="music_controls">
+        <i class="fas fa-solid fa-angles-left" id="prev" title="Previous"></i>
+        <i class="fas fa-solid fa-play main-button" id="play" title="Play / Pause"></i>
+        <i class="fas fa-solid fa-angles-right" id="next" title="Next"></i>
+      </div>
+    </div>
+  </div>
+  <script>
+    const music = document.querySelector("audio");
+    const img = document.querySelector("img");
+    const play = document.getElementById("play");
+    const artist = document.getElementById("artist");
+    const title = document.getElementById("title");
+    const prev = document.getElementById("prev");
+    const next = document.getElementById("next");
+
+    const songs = [
+      {
+        name: "Sing For The Moment",
+        title: "Sing For The Moment",
+        artist: "Eminem",
+      },
+      {
+        name: "Till I Collapse",
+        title: "Till I Collapse",
+        artist: "Eminem",
+      },
+      {
+        name: "Dil Mere - Cover By Imdad -- The Local Train",
+        title: "Dil Mere",
+        artist: "The Local Train",
+      },
+      {
+        name: "Eminem - Till I Collapse (NEFFEX Remix)",
+        title: "Till I Collapse(REMIX)",
+        artist: "NEFFEX",
+      },
+      {
+        name: "Go Off",
+        title: "Go Off",
+        artist: "Lil Uzi",
+      },
+      {
+        name: "Stereo Hearts",
+        title: "Gym Class Heroes",
+        artist: "Adam Levine",
+      },
+      {
+        name: "Know No Better (feat. Travis Scot",
+        title: "Know No Better (feat. Travis Scot",
+        artist: "Major Lazer",
+      },
+      {
+        name: "Legend Has It",
+        title: "Legend Has It",
+        artist: "RTJ3",
+      },
+      {
+        name: "Particula (feat. Nasty C, Ice Pri",
+        title: "Particula",
+        artist: "Major Lazer",
+      },
+      {
+        name: "Yellow Claw - Good Day (feat. DJ Snake & Elliphant)",
+        title: "Yellow Claw - Good Day",
+        artist: "DJ Snake",
+      },
+    ];
+
+    // for play function
+
+    let isPlaying = false;
+   // music.addEventListener('ended',()=> { });
+    const playMusic = () => {
+      isPlaying = true;
+      music.play();
+      play.classList.replace("fa-play", "fa-pause");
+      img.classList.add("animation");
+    };
+ 
+
+    // for pause function
+    const pauseMusic = () => {
+      isPlaying = false;
+      music.pause();
+      play.classList.replace("fa-pause", "fa-play");
+      img.classList.remove("animation");
+    };
+
+
+    play.addEventListener("click", () => {
+      if (isPlaying) {
+        pauseMusic();
+      } else {
+        playMusic();
+      }
+
+    });
+
+
+    // chnaging the music data
+    const loadSong = (songs) => {
+      title.textContent = songs.title;
+      artist.textContent = songs.artist;
+      music.src = "MUSIC/" + songs.name + ".mp3";
+      img.src = "MUSIC/IMAGES/" + songs.name + ".jpg";
+    };
+    songIndex = 0;
+
+    const nextSong = () => {
+      songIndex = (songIndex + 1) % songs.length;
+      loadSong(songs[songIndex]);
+      music.play();
+      img.classList.add("animation");
+      play.classList.replace("fa-play", "fa-pause");
+    };
+    const prevSong = () => {
+      songIndex = (songIndex - 1 + songs.length) % songs.length;
+      loadSong(songs[songIndex]);
+      music.play();
+      img.classList.add("animation");
+      play.classList.replace("fa-play", "fa-pause");
+    };
+
+    next.addEventListener("click", nextSong);
+    prev.addEventListener("click", prevSong);
+  </script>
+</body>
+
+</html>
